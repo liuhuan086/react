@@ -2,16 +2,36 @@
 import React, {Component, Fragment} from 'react'
 import './style.css'
 import XiaojiejieItem from "./XiaojiejieItem";
+import axios from 'axios'
 
 class Xiaojiejie extends Component {
     constructor(props) {
         super(props);
         this.state = {
             //数据驱动，那就在这里填入数据
-            inputValue: "Ryan",
-            list: ["基础按摩", "精油推背", "全身按摩"]
+            inputValue: "",
+            //// list: ["基础按摩", "精油推背", "全身按摩"]
             // 数据初始化完毕
+
+            list: []
         }
+    }
+
+    // 将axios在componentDidMount生命周期函数中
+    // 第一次进入页面，需要页面数据的时候，就写到这里面，它只加载一次，
+    // 我们再update的时候，是不会再发生改变的
+    componentDidMount() {
+        axios.get('https://easy-mock.com/mock/5f97fd83799531652701fe83/react/xjaojiejie')
+            //then就是一个回调函数，当获取数据之后，就返回一个ajax，就相当于参数
+            .then((res) => {
+                console.log('axios 获取成功：' + JSON.stringify(res))
+                this.setState({
+                    list: res.data.data
+                })
+            })
+            .catch((error) => {
+                console.log('获取数据失败：' + error)
+            })
     }
 
     // UNSAFE_componentWillMount() {
