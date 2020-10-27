@@ -11,15 +11,20 @@ class XiaojiejieItem extends Component {
         this.handleClick = this.handleClick.bind(this)
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
-        console.log("0、UNSAFE_componentWillReceiveProps")
-    }
+    // UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
+    //     console.log("0、UNSAFE_componentWillReceiveProps")
+    // }
+    //
+    // componentWillUnmount() {
+    //     console.log("++++++componentWillUnmount")
+    // }
 
-    componentWillUnmount() {
-        console.log("++++++componentWillUnmount")
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return nextProps.content !== this.props.content;
     }
 
     render() {
+        console.log("child---->>render")
         return (
             <li onClick={this.handleClick}>
                 {/*这种方式是写死的，不能实现参数传递*/}
