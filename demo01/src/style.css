@@ -1,3 +1,84 @@
 .input {
     border: 3px solid #ae7000
 }
+
+/*.show {*/
+/*    opacity: 1;*/
+/*    transition: all 1.5s ease-in;*/
+/*}*/
+
+/*.hide {*/
+/*    opacity: 0;*/
+/*    transition: all 1.5s ease-in;*/
+/*}*/
+
+/*.show {*/
+/*    animation: show-item 2s ease-in forwards;*/
+
+/*}*/
+
+/*.hide {*/
+/*    animation: hide-item 2s ease-in forwards;*/
+/*}*/
+
+/*@keyframes hide-item {*/
+/*    0% {*/
+/*        opacity: 1;*/
+/*        color: yellow;*/
+/*    }*/
+/*    50% {*/
+/*        opacity: 0.5;*/
+/*        color: red;*/
+/*    }*/
+/*    100% {*/
+/*        opacity: 0;*/
+/*        color: green;*/
+/*    }*/
+/*}*/
+
+/*@keyframes show-item {*/
+/*    0% {*/
+/*        opacity: 0;*/
+/*        color: yellow;*/
+/*    }*/
+/*    50% {*/
+/*        opacity: 0.5;*/
+/*        color: red;*/
+/*    }*/
+/*    100% {*/
+/*        opacity: 1;*/
+/*        color: green;*/
+/*    }*/
+/*}*/
+
+/*入场的状态*/
+.boss-text-enter {
+    opacity: 0;
+}
+
+/*入场到结束的状态*/
+.boss-enter-active {
+    opacity: 1;
+    transition: 2s;
+}
+
+/*入场结束的状态*/
+.boss-enter-done {
+    opacity: 1;
+}
+
+/*出场*/
+.boss-exit {
+    opacity: 0;
+
+}
+
+.boss-exit-active {
+    opacity: 0.5;
+    transition: 2s;
+
+}
+
+.boss-exit-done {
+    opacity: 0;
+}

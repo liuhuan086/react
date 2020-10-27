@@ -3,6 +3,9 @@ import React, {Component, Fragment} from 'react'
 import './style.css'
 import XiaojiejieItem from "./XiaojiejieItem";
 import axios from 'axios'
+import Boss from './Boss'
+// TransitionGroup可以控制多DOM
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 class Xiaojiejie extends Component {
     constructor(props) {
@@ -10,7 +13,7 @@ class Xiaojiejie extends Component {
         this.state = {
             //数据驱动，那就在这里填入数据
             inputValue: "",
-            //// list: ["基础按摩", "精油推背", "全身按摩"]
+            // list: ["基础按摩", "精油推背", "全身按摩"]
             // 数据初始化完毕
 
             list: []
@@ -88,22 +91,34 @@ class Xiaojiejie extends Component {
                     this.ul = ul
                 }}
                 >
-                    {
-                        this.state.list.map((item, index) => {
-                            return (
-                                <
-                                    XiaojiejieItem
-                                    // avname={'波多野结衣'}
-                                    key={item + index}
-                                    content={item}
-                                    index={index}
-                                    deleteItem={this.deleteItem.bind(this)}
-                                />
-                            )
-                        })
-                    }
+                    <TransitionGroup>
+                        {
+                            this.state.list.map((item, index) => {
+                                return (
+                                    <CSSTransition
+                                        timeout={2000}
+                                        classNames="boss-text"
+                                        unmountOnExit
+                                        key={index + item}
+                                    >
+                                        <
+                                            XiaojiejieItem
+                                            // avname={'波多野结衣'}
+                                            key={item + index}
+                                            content={item}
+                                            index={index}
+                                            deleteItem={this.deleteItem.bind(this)}
+                                        />
+                                    </CSSTransition>
+                                )
+                            })
+                        }
+                    </TransitionGroup>
                 </ul>
                 {/*</div>*/}
+
+                <Boss/>
+
             </Fragment>
         )
     }
