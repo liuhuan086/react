@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import "./style.css";
+import PropTypes from 'prop-types'
 
 // import Xiaojiejie from "./Xiaojiejie";
 
@@ -15,7 +16,7 @@ class XiaojiejieItem extends Component {
             <li onClick={this.handleClick}>
                 {/*这种方式是写死的，不能实现参数传递*/}
                 {/*小姐姐*/}
-                {this.props.content}
+                {this.props.avname}-为你提供-{this.props.content}
             </li>
         );
     }
@@ -23,6 +24,17 @@ class XiaojiejieItem extends Component {
     handleClick() {
         this.props.deleteItem(this.props.index)
     }
+}
+
+XiaojiejieItem.propTypes = {
+    avname: PropTypes.string.isRequired,
+    content: PropTypes.string,
+    index: PropTypes.number,
+    deleteItem: PropTypes.func
+}
+
+XiaojiejieItem.defaultProps = {
+    avname: "松岛枫"
 }
 
 export default XiaojiejieItem

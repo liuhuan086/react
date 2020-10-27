@@ -29,17 +29,28 @@ class Xiaojiejie extends Component {
                     {/* input说明状态有变化，这时就需要事件绑定，onChange*/}
                     {/*<input value={this.state.inputValue} onChange={this.inputChange}/>*/}
                     {/* 下面用this.state.inputValue = e.target.value会报错，需要进行绑定 */}
-                    <input id="test" className={"input"} value={this.state.inputValue}
-                           onChange={this.inputChange.bind(this)}/>
+                    <input
+                        id="test"
+                        className={"input"}
+                        value={this.state.inputValue}
+                        onChange={this.inputChange.bind(this)}
+                        ref={(input) => {
+                            this.input = input
+                        }}
+                    />
                     <button onClick={this.addList.bind(this)}>增加服务</button>
                 </div>
 
-                <ul>
+                <ul ref={(ul) => {
+                    this.ul = ul
+                }}
+                >
                     {
                         this.state.list.map((item, index) => {
                             return (
                                 <
                                     XiaojiejieItem
+                                    // avname={'波多野结衣'}
                                     key={item + index}
                                     content={item}
                                     index={index}
@@ -56,48 +67,68 @@ class Xiaojiejie extends Component {
 
     // 在render函数外部实现事件绑定的方法
     // e是默认的传递的参数
+    // inputChange(e) {
+    //     // console.log(e)
+    //     /*
+    //     *
+    //     * SyntheticBaseEvent {_reactName: "onChange", _targetInst: null, type: "change", nativeEvent: InputEvent, target: input, …}
+    //     * bubbles: true
+    //     * cancelable: false
+    //     * currentTarget: null
+    //     * defaultPrevented: false
+    //     * eventPhase: 3
+    //     * isDefaultPrevented: ƒ functionThatReturnsFalse()
+    //     * isPropagationStopped: ƒ functionThatReturnsFalse()
+    //     * isTrusted: true
+    //     * nativeEvent: InputEvent {isTrusted: true, data: "s", isComposing: false, inputType: "insertText", dataTransfer: null, …}
+    //     * target: input
+    //     * timeStamp: 101620.88000000222
+    //     * type: "change"
+    //     * _reactName: "onChange"
+    //     * _targetInst: null
+    //     * __proto__: Object
+    //     *
+    //     * */
+    //
+    //     // 但是通过这种方式，在页面上看不到数据有任何的变量
+    //     console.log(this)
+    //     // 下面会报错，this的指向是错误的，需要使用bind方法进行绑定才可以
+    //     // this.state.inputValue = e.target.value
+    //
+    //     // 同时数据的改变也不能用上面这种方式
+    //     this.setState({
+    //         inputValue: e.target.value
+    //     })
+    // }
+
     inputChange(e) {
-        // console.log(e)
-        /*
-        *
-        * SyntheticBaseEvent {_reactName: "onChange", _targetInst: null, type: "change", nativeEvent: InputEvent, target: input, …}
-        * bubbles: true
-        * cancelable: false
-        * currentTarget: null
-        * defaultPrevented: false
-        * eventPhase: 3
-        * isDefaultPrevented: ƒ functionThatReturnsFalse()
-        * isPropagationStopped: ƒ functionThatReturnsFalse()
-        * isTrusted: true
-        * nativeEvent: InputEvent {isTrusted: true, data: "s", isComposing: false, inputType: "insertText", dataTransfer: null, …}
-        * target: input
-        * timeStamp: 101620.88000000222
-        * type: "change"
-        * _reactName: "onChange"
-        * _targetInst: null
-        * __proto__: Object
-        *
-        * */
-
-        // 但是通过这种方式，在页面上看不到数据有任何的变量
-        console.log(this)
-        // 下面会报错，this的指向是错误的，需要使用bind方法进行绑定才可以
-        // this.state.inputValue = e.target.value
-
-        // 同时数据的改变也不能用上面这种方式
         this.setState({
-            inputValue: e.target.value
+            inputValue: this.input.value
         })
     }
 
     // 增加列表
     addList() {
         this.setState({
-            // ... 三个点表示扩展运算符，相当于把上面list中的元素全都以 点 来代替
-            list: [...this.state.list, this.state.inputValue],
-            // 通过这种方式输入框中的值就会被清空，否则会出现在输入框中
-            inputValue: ""
-        })
+                // ... 三个点表示扩展运算符，相当于把上面list中的元素全都以 点 来代替
+                list: [...this.state.list, this.state.inputValue],
+                // 通过这种方式输入框中的值就会被清空，否则会出现在输入框中
+                inputValue: ""
+            },
+            /* 通过回调函数的形式，就可以将结果进行同步 */
+            () => {
+                console.log(this.ul.querySelectorAll('li').length)
+
+            })
+        /* 发现下面打印的长度总是少一个 */
+        // console.log(this.ul.querySelectorAll('li').length)
+        /*
+        *
+        * setState是一个异步的方法，不是同步的方法，虚拟DOM渲染也是需要时间的，
+        * 因为console是实时刷新的，还未等setState执行完毕（还未渲染完成）就将结果输出，
+        * 因此打印的是上一次渲染后的结果。
+        *
+        * */
     }
 
     // 删除列表
