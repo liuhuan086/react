@@ -14,7 +14,30 @@ class Xiaojiejie extends Component {
         }
     }
 
+    UNSAFE_componentWillMount() {
+        console.log('组件将要挂载到页面的时刻')
+    }
+
+    componentDidMount() {
+        console.log("组件挂载完成")
+    }
+
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        console.log("1、shouldComponentUpdate")
+        return true
+    }
+
+    UNSAFE_componentWillUpdate(nextProps, nextState, nextContext) {
+        console.log("2、UNSAFE_componentWillUpdate")
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log("4、componentDidUpdate")
+    }
+
+
     render() {
+        console.log('3、render开始渲染')
         return (
             // <div>
             <Fragment>

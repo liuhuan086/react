@@ -11,6 +11,14 @@ class XiaojiejieItem extends Component {
         this.handleClick = this.handleClick.bind(this)
     }
 
+    UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
+        console.log("0、UNSAFE_componentWillReceiveProps")
+    }
+
+    componentWillUnmount() {
+        console.log("++++++componentWillUnmount")
+    }
+
     render() {
         return (
             <li onClick={this.handleClick}>
